@@ -67,6 +67,7 @@ if (!(isset($_SESSION['c_password']))) {
         }
      }
     ?>
+   
 </body>
 <script src="./jquery.js" ></script>
 <script>
@@ -81,4 +82,6 @@ $(function(){
     })
 })
 </script>
+
+
 </html>

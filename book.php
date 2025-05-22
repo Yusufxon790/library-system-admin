@@ -19,7 +19,6 @@ if (!(isset($_SESSION['c_password']))) {
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <script src="page_logout.js" ></script>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="./bootstrap-5.3/css/bootstrap.css">
         <link rel="stylesheet" href="./font/all.css">
