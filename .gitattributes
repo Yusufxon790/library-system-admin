@@ -5,9 +5,12 @@
 *.php linguist-language=PHP
 
 # Exclude assets from language stats
-/assets/* linguist-vendored
-/css/* linguist-vendored
-/bootstrap-5.3/* linguist-vendored
-/font/* linguist-vendored
-/js/* linguist-vendored
+assets/* linguist-vendored
+css/* linguist-vendored
+bootstrap-5.3/* linguist-vendored
+font/* linguist-vendored
+js/* linguist-vendored
 
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+assets/* linguist-detectable=false
