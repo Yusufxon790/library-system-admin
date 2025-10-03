@@ -1,6 +1,8 @@
 <?php
+$con = mysqli_connect('localhost', 'root', 'root', 'library') or die(mysqli_connect_error());
+
+
 if (isset($_POST['ser_author'])) {
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select * from author where first_name like '%".$_POST['ser_author']."%' or last_name like '%".$_POST['ser_author']."%'";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     while ($row=mysqli_fetch_array($q)) {
@@ -11,27 +13,40 @@ if (isset($_POST['ser_author'])) {
 }
 
 if (isset($_POST['ser_book'])) {
-    $con=mysqli_connect('localhost','root','root','library');
-    $sql="select * from book where title like '%".$_POST['ser_book']."%'";
-    $q=mysqli_query($con,$sql) or die(mysqli_error($con));
-    while ($row=mysqli_fetch_array($q)) {
+    $search = trim($_POST['ser_book']);
+    $search = mysqli_real_escape_string($con, $search);
+
+    $sql = "select id, title from book where title like '%$search%' limit 10";
+    $q   = mysqli_query($con, $sql) or die(mysqli_error($con));
+
+    while ($row = mysqli_fetch_assoc($q)) {
         ?>
-        <option value="<?echo $row['id']?>"><?echo $row['title']?></option>
-        <?
-     }
+        <option value="<?php echo $row['id']; ?>">
+            <?php echo htmlspecialchars($row['title']); ?>
+        </option>
+        <?php
+    }
 }
+
 if (isset($_POST['ser_staff'])) {
-    $con=mysqli_connect('localhost','root','root','library');
-    $sql="select * from staff where first_name like '%".$_POST['ser_staff']."%' or last_name like '%".$_POST['ser_staff']."%'";
-    $q=mysqli_query($con,$sql) or die(mysqli_error($con));
-    while ($row=mysqli_fetch_array($q)) {
+    $search = trim($_POST['ser_staff']);
+    $search = mysqli_real_escape_string($con, $search);
+
+    $sql = "select id, first_name, last_name 
+            from staff 
+            where first_name like '%$search%' or last_name like '%$search%'
+            limit 10";
+    $q   = mysqli_query($con, $sql) or die(mysqli_error($con));
+
+    while ($row = mysqli_fetch_assoc($q)) {
         ?>
-        <option value="<?echo $row['id']?>"><?echo $row['first_name']." ".$row['last_name']?></option>
-        <?
-     }
+        <option value="<?php echo $row['id']; ?>">
+            <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
+        </option>
+        <?php
+    }
 }
 if (isset($_POST['ser_all'])) {
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select book.*, author.first_name,author.last_name from book left join author on author.id=book.author_id where book.title like '%".$_POST['ser_all']."%' or book.genre like '%".$_POST['ser_all']."%' or author.first_name like '%".$_POST['ser_all']."%' or author.last_name like '%".$_POST['ser_all']."%' or book.isbn like '%".$_POST['ser_all']."%' ";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     $i=1;
@@ -54,7 +69,6 @@ if (isset($_POST['ser_all'])) {
 }
 
 if(isset($_POST['author_ser'])){
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select * from author where first_name like '%".$_POST['author_ser']."%' or last_name like '%".$_POST['author_ser']."%' or nationality like '%".$_POST['author_ser']."%' or birth_date like '%".$_POST['author_ser']."%' ";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     $i=1;
@@ -75,7 +89,6 @@ if(isset($_POST['author_ser'])){
 }
 
 if (isset($_POST['staff_ser'])) {
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select * from staff where first_name like '%".$_POST['staff_ser']."%' or last_name like '%".$_POST['staff_ser']."%' or position like '%".$_POST['staff_ser']."%' or phone like '%".$_POST['staff_ser']."%' or email like '%".$_POST['staff_ser']."%' or  hiredate like '%".$_POST['staff_ser']."%' ";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     $i=1;
@@ -99,7 +112,6 @@ if (isset($_POST['staff_ser'])) {
 }
 $current_date=date("Y-m-d");
 if (isset($_POST['member_ser'])) {
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select * from member where first_name like '%".$_POST['member_ser']."%' or last_name like '%".$_POST['member_ser']."%' or address like '%".$_POST['member_ser']."%' or phone like '%".$_POST['member_ser']."%' or email like '%".$_POST['member_ser']."%' or start_date like '%".$_POST['member_ser']."%' or expiry_date like '%".$_POST['member_ser']."%' ";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     $i=1;
@@ -129,7 +141,6 @@ if (isset($_POST['member_ser'])) {
 }
 
 if (isset($_POST['t_ser'])) {
-    $con=mysqli_connect('localhost','root','root','library');
     $sql="select book.title,member.first_name as m_name,member.last_name as m_surname,staff.first_name as s_name,staff.position as s_position,datediff(transaction.return_date,transaction.borrow_date) as due_date,transaction.*,transaction.id as id from transaction left join book on transaction.book_id=book.id left join member on transaction.member_id=member.id left join staff on transaction.staff_id=staff.id where book.title like '%".$_POST['t_ser']."%' or member.first_name like '%".$_POST['t_ser']."%' or  member.last_name like '%".$_POST['t_ser']."%' or staff.first_name like '%".$_POST['t_ser']."%' or staff.position like '%".$_POST['t_ser']."%' or datediff(transaction.return_date,transaction.borrow_date) like '%".$_POST['t_ser']."%' ";
     $q=mysqli_query($con,$sql) or die(mysqli_error($con));
     $i=1;

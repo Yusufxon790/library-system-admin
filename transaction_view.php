@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,13 +18,6 @@ if (!(isset($_SESSION['c_password']))) {
     <div class="container-fluid">
         <h2 class="alert alert-info text-center" >Transaction View</h2>
         <div class="table-responsive-xl" >
-            <?php
-            if ($row['return_date']<=$current_date) {
-                ?>
-                <h4 class="text-danger" >This Member's book return date is over!!</h4>
-                <?
-            }
-            ?>
             <table class="table table-striped table-primary table-hover" >
                                 <thead class="table table-dark" >
                                     <tr>
@@ -59,7 +42,7 @@ if (!(isset($_SESSION['c_password']))) {
                                         $sql="select book.title,member.first_name as m_name,member.last_name as m_surname,member.email as m_email,member.phone as m_phone,staff.first_name as s_name,staff.position as s_position,transaction.borrow_date,transaction.return_date,datediff(transaction.return_date,transaction.borrow_date) as due_date,transaction.*,transaction.id as id from transaction left join book on transaction.book_id=book.id left join member on transaction.member_id=member.id left join staff on transaction.staff_id=staff.id where transaction.id=".$_GET['id'];
                                         $q=mysqli_query($con,$sql) or die(mysqli_error($con));
                                         $i=1;
-                                        while ($row=mysqli_fetch_array($q)) {
+                                        $row=mysqli_fetch_array($q);
                                             ?>
                                             <tr <?php
                                             if ($row['return_date']<=$current_date) {
@@ -85,7 +68,7 @@ if (!(isset($_SESSION['c_password']))) {
                                                 </td>
                                             </tr>
                                             <?
-                                        }
+                                        
                                     ?>
                                 </tbody>
                                 <?php
@@ -108,6 +91,13 @@ if (!(isset($_SESSION['c_password']))) {
                                 ?>
              </table>
             </div>
+            <?php
+            if ($row['return_date']<=$current_date) {
+                ?>
+                <h4 class="text-danger" >This Member's book return date is over!!</h4>
+                <?
+            }
+            ?>
             <a href="transaction.php" class="btn btn-danger" >Back</a>
               </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

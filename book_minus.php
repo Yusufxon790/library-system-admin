@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +9,7 @@ if (!(isset($_SESSION['c_password']))) {
 </head>
 <body>
     <div class="container mb-4">
-        <h2 class="alert alert-Danger text-center " >Minus Books Quantity</h2>
+        <h2 class="alert alert-danger text-center " >Minus Books Quantity</h2>
         <?php
              $con=mysqli_connect('localhost','root','root','library');
              $sql="select * from book where id=".$_GET['id'];

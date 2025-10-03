@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +9,7 @@ if (!(isset($_SESSION['c_password']))) {
 </head>
 <body>
     <div class="container">
-        <h2 class="alert alert-info text-center" >Adding Transaction</h2>
+        <h2 class="alert alert-info text-center" >Adding Membership's Transaction</h2>
         <?php
             $con=mysqli_connect('localhost','root','root','library');
             $sql="select * from member where id=".$_GET['id'];
@@ -27,21 +17,22 @@ if (!(isset($_SESSION['c_password']))) {
             $row=mysqli_fetch_array($q);
 
         ?>
+        <h3 style="color: blue;" ><span style="color: black;" >Membership Name: </span><?echo $row['first_name']." ".$row['last_name']?></h3>
         <form method="POST" action="">
             <input type="hidden" name="member_id" value="<?echo $_GET['id']?>" >
             <label for="">Book Name :</label>
-            <input type="search" id="ser_book" name="ser_book" class="form-control" placeholder="Search..." >
+            <input type="search" id="ser_book" name="ser_book" class="form-control mb-2" placeholder="Search..." >
             <select class="form-select" name="book_id" id="suggestions" required >
                 <option value="">---</option>
             </select><br>
             <label for="">Staff Name :</label>
-            <input type="search" name="ser_staff" id="ser_staff" class="form-control" placeholder="Search..." >
+            <input type="search" name="ser_staff" id="ser_staff" class="form-control mb-2" placeholder="Search..." >
             <select name="staff_id" id="suggestions2" class="form-select" required >
                 <option value="">---</option>
             </select><br>
             <label for="">Borrow Date :</label>
             <input type="date" name="borrow_date" class="form-control" placeholder="Borrow Date" required><br>
-            <p>Member Expiry Date: <span class="text-danger" ><?echo $row['expiry_date']?> </span></p>
+            <p>Membership Expiry Date: <span class="text-danger" ><?echo $row['expiry_date']?> </span></p>
             <label for="">Return Date :</label>
             <input type="date" name="return_date" max="<?echo $row['expiry_date']?>" class="form-control" placeholder="Return Date" required><br>
             <input type="submit" name="s" value="Send" class="btn btn-primary" >

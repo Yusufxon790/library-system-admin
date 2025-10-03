@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +9,7 @@ if (!(isset($_SESSION['c_password']))) {
 </head>
 <body>
     <div class="container">
-        <h2 class="alert alert-info text-center" >Adding Member</h2>
+        <h2 class="alert alert-info text-center" >Adding Membership</h2>
         <form method="POST" action="">
             <input type="text" name="first_name" class="form-control" placeholder="Name" required><br>
             <input type="text" name="last_name" class="form-control" placeholder="Surname" required><br>

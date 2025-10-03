@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,18 +10,18 @@ if (!(isset($_SESSION['c_password']))) {
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <div class="container mb-4">
+    <div class="container-lg container-md-fluid">
         <h2 class="alert alert-info text-center " >All Information about Book</h2>
-        <div class="table-responsive-xl" >
+        <div class="table-responsive-lg" >
             <table class="table table-info table-striped" >
                 <thead class="table table-dark" >
                 <tr>
                  <th>No</th>
-                 <th>Title</th>
+                 <th>Book Name</th>
                  <th>Author</th>
                  <th>ISBN</th>
                  <th>Genre</th>
-                 <th>Publisher</th>
+                 <th>Publisher Company</th>
                  <th>Publish Date</th>
                  <th>Copies Available</th>
                  <th>Quantity</th>

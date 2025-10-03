@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 22, 2025 at 02:19 PM
+-- Generation Time: Oct 03, 2025 at 11:13 AM
 -- Server version: 8.0.19
--- PHP Version: 7.4.14
+-- PHP Version: 8.0.1
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `library`
 --
+CREATE DATABASE IF NOT EXISTS `library` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `library`;
 
 -- --------------------------------------------------------
 
@@ -27,13 +30,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `author`
 --
 
-CREATE TABLE `author` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `author`;
+CREATE TABLE IF NOT EXISTS `author` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `nationality` varchar(100) NOT NULL,
-  `birth_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `birth_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `author`
@@ -53,45 +58,29 @@ INSERT INTO `author` (`id`, `first_name`, `last_name`, `nationality`, `birth_dat
 -- Table structure for table `book`
 --
 
-CREATE TABLE `book` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `book`;
+CREATE TABLE IF NOT EXISTS `book` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `author_id` int NOT NULL,
   `isbn` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `genre` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `publisher` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `pub_date` year NOT NULL,
+  `pub_date` date DEFAULT NULL,
   `copies_available` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `quantity` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `author_id` (`author_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `book`
 --
 
 INSERT INTO `book` (`id`, `title`, `author_id`, `isbn`, `genre`, `publisher`, `pub_date`, `copies_available`, `quantity`) VALUES
-(1, 'Biznessdagi 99 xato va ularga yechimlar', 1, '978-9910-9940-2-9', 'Business', 'Oltin qalam nashriyoti', 2023, 'No', 38),
-(2, 'Bir varoqli Marketing Reja', 6, '978-9943-23-197-9', 'Marketing', 'Asaxiy Books', 2022, 'No', 20),
-(4, 'Mushuklar Shahri Xotiralari', 2, '978-9943-43-167-7', 'Badiiy', 'G\'ofur G\'ulom', 2017, 'Yes', 1000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `id` int NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `login`
---
-
-INSERT INTO `login` (`id`, `username`, `password`) VALUES
-(1, 'elidon', 'lib5068');
+(1, 'Biznessdagi 99 xato va ularga yechimlar', 1, '978-9910-9940-2-9', 'Business', 'Oltin qalam nashriyoti', '2023-07-23', 'No', 38),
+(2, 'Bir varoqli Marketing Reja', 6, '978-9943-23-197-9', 'Marketing', 'Asaxiy Books', '2019-12-11', 'No', 20),
+(4, 'Mushuklar Shahri Xotiralari', 2, '978-9943-43-167-7', 'Badiiy', 'G\'ofur G\'ulom', '2009-09-09', 'Yes', 1000);
 
 -- --------------------------------------------------------
 
@@ -99,16 +88,18 @@ INSERT INTO `login` (`id`, `username`, `password`) VALUES
 -- Table structure for table `member`
 --
 
-CREATE TABLE `member` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `start_date` date NOT NULL,
-  `expiry_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `expiry_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `member`
@@ -124,13 +115,15 @@ INSERT INTO `member` (`id`, `first_name`, `last_name`, `address`, `phone`, `emai
 -- Table structure for table `register`
 --
 
-CREATE TABLE `register` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `register`;
+CREATE TABLE IF NOT EXISTS `register` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `surname` varchar(100) NOT NULL,
   `age` int NOT NULL,
-  `gender` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `gender` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `register`
@@ -145,37 +138,20 @@ INSERT INTO `register` (`id`, `name`, `surname`, `age`, `gender`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `r_login`
---
-
-CREATE TABLE `r_login` (
-  `id` int NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `r_login`
---
-
-INSERT INTO `r_login` (`id`, `username`, `password`) VALUES
-(1, 'register', '5068');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `staff`
 --
 
-CREATE TABLE `staff` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `staff`;
+CREATE TABLE IF NOT EXISTS `staff` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `position` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `hiredate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `hiredate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `staff`
@@ -192,14 +168,19 @@ INSERT INTO `staff` (`id`, `first_name`, `last_name`, `position`, `phone`, `emai
 -- Table structure for table `transaction`
 --
 
-CREATE TABLE `transaction` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `transaction`;
+CREATE TABLE IF NOT EXISTS `transaction` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `book_id` int NOT NULL,
   `member_id` int NOT NULL,
   `staff_id` int NOT NULL,
   `borrow_date` date NOT NULL,
-  `return_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `return_date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `book_id` (`book_id`,`member_id`,`staff_id`),
+  KEY `member_id` (`member_id`),
+  KEY `staff_id` (`staff_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transaction`
@@ -208,114 +189,6 @@ CREATE TABLE `transaction` (
 INSERT INTO `transaction` (`id`, `book_id`, `member_id`, `staff_id`, `borrow_date`, `return_date`) VALUES
 (1, 1, 1, 2, '2024-01-01', '2024-11-01'),
 (7, 2, 1, 1, '2024-06-12', '2024-10-30');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `author`
---
-ALTER TABLE `author`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `book`
---
-ALTER TABLE `book`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `author_id` (`author_id`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `member`
---
-ALTER TABLE `member`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `register`
---
-ALTER TABLE `register`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `r_login`
---
-ALTER TABLE `r_login`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `staff`
---
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `transaction`
---
-ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `book_id` (`book_id`,`member_id`,`staff_id`),
-  ADD KEY `member_id` (`member_id`),
-  ADD KEY `staff_id` (`staff_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `author`
---
-ALTER TABLE `author`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `book`
---
-ALTER TABLE `book`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `login`
---
-ALTER TABLE `login`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `member`
---
-ALTER TABLE `member`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `register`
---
-ALTER TABLE `register`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `r_login`
---
-ALTER TABLE `r_login`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `staff`
---
-ALTER TABLE `staff`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `transaction`
---
-ALTER TABLE `transaction`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -334,6 +207,7 @@ ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`),
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

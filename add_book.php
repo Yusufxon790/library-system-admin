@@ -21,17 +21,18 @@ if (!(isset($_SESSION['c_password']))) {
     <div class="container">
         <h2 class="alert alert-primary text-center " >Adding Books</h2>
         <form action="" method="POST" >
-            <input type="text" name="title" class="form-control" placeholder="Title" required ><br>
-            <label for="">Author : </label>
-            <input type="search" id="ser_author"  name="ser_author" class="form-control" placeholder="Search..." >
+            <input type="text" name="title" class="form-control" placeholder="Book Name" required ><br>
+            <label for="">Search & Select Author : </label>
+            <input type="search" id="ser_author"  name="ser_author" class="form-control mb-2" placeholder="Search Author..." >
             <select id="suggestions" class="form-select" name="author_id" required >
                <option value="">---</option>
             </select><br>
             <input type="text" name="isbn" class="form-control" placeholder="ISBN" required ><br>
             <input type="text" name="genre" class="form-control" placeholder="Genre" required ><br>
-            <input type="text" name="publisher" class="form-control" placeholder="Publisher" required ><br>
-            <input type="number" name="pub_date" class="form-control" placeholder="Publish Year" required ><br>
-            <p>Copies Available</p>
+            <input type="text" name="publisher" class="form-control" placeholder="Publisher Company Name" required ><br>
+            <label for="">Published Date:</label>
+            <input type="date" name="pub_date" class="form-control" required ><br>
+            <p>Copies Available:</p>
            <input type="radio" name="copies_available" id="c_av"  value="Yes" required >Yes
            <input type="radio" name="copies_available" id="c_av" value="No" required >No
            <br>

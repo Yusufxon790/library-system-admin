@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +9,7 @@ if (!(isset($_SESSION['c_password']))) {
 </head>
 <body>
     <div class="container">
-        <h2 class="alert alert-info text-center" >Editing Member</h2>
+        <h2 class="alert alert-info text-center" >Editing Membership</h2>
         <?php
             $con=mysqli_connect('localhost','root','root','library');
             $sql="select * from member where id=".$_GET['uid'];

@@ -1,13 +1,3 @@
-<?
-session_start();
-if (!(isset($_SESSION['c_password']))) {
-   ?>
-   <script>
-    window.location.href="index.php";
-   </script>
-   <?
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +9,7 @@ if (!(isset($_SESSION['c_password']))) {
 </head>
 <body>
     <div class="container">
-        <h2 class="alert alert-warning text-center" >Editing Member</h2>
+        <h2 class="alert alert-warning text-center" >Editing Membership's Transaction</h2>
         <?php
          $con=mysqli_connect('localhost','root','root','library');
          $sql="select book.title,book.id as b_id,member.id as m_id,staff.id as s_id,staff.first_name as s_name,staff.last_name as s_surname,transaction.borrow_date,transaction.return_date from transaction left join book on transaction.book_id=book.id left join member on transaction.member_id=member.id left join staff on transaction.staff_id=staff.id where transaction.id=".$_GET['uid'];
@@ -31,13 +21,13 @@ if (!(isset($_SESSION['c_password']))) {
             <input type="hidden" name="old_book" value="<?echo $row['b_id']?>" >
             <input type="hidden" name="old_staff" value="<?echo $row['s_id']?>" >
             <input type="hidden" name="member_id" value="<?echo $row['m_id']?>" >
-            <label for="">Book Name : <?echo $row['title']?></label>
-            <input type="search" id="ser_book" name="ser_book" class="form-control" placeholder="Search to change..." >
+            <label for="">Book Name : <span style="color:blue" ><?echo $row['title']?></span></label>
+            <input type="search" id="ser_book" name="ser_book" class="form-control mb-2" placeholder="Search to change..." >
             <select class="form-select" name="book_id" id="suggestions"  >
                 <option value="">---</option>
             </select><br>
-            <label for="">Staff Name : <?echo $row['s_name']." ".$row['s_surname']?></label>
-            <input type="search" name="ser_staff" id="ser_staff" class="form-control" placeholder="Search to change..." >
+            <label for="">Staff Name : <span style="color: blue;" ><?echo $row['s_name']." ".$row['s_surname']?></span></label>
+            <input type="search" name="ser_staff" id="ser_staff" class="form-control mb-2" placeholder="Search to change..." >
             <select name="staff_id" id="suggestions2" class="form-select" >
                 <option value="">---</option>
             </select><br>

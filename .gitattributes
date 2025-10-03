@@ -1,0 +1,13 @@
+# Normalize text files
+* text=auto eol=lf
+
+# Force PHP recognition
+*.php linguist-language=PHP
+
+# Exclude assets from language stats
+/assets/* linguist-vendored
+/css/* linguist-vendored
+/bootstrap-5.3/* linguist-vendored
+/font/* linguist-vendored
+/js/* linguist-vendored
+
