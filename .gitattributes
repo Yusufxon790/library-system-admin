@@ -14,3 +14,5 @@ js/* linguist-vendored
 *.css linguist-detectable=false
 *.js linguist-detectable=false
 assets/* linguist-detectable=false
+
+*.sql linguist-detectable=true
